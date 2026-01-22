@@ -18,9 +18,20 @@ export const loginSchema = z.object({
   password: z.string().min(1)
 });
 
-export const createItemSchema = z.object ({
-  title:z.string().min(3).max(100),
-  description:z.string().min(3).max(1000),
-  category:z.enum(['electronics', 'documents', 'clothing', 'jewelry', 'keys', 'wallet', 'bag', 'other']),
-  status:z.enum(['lost','found'])
-})
+// Add to existing authSchemas.ts
+export const createItemSchema = z.object({
+  title: z.string().min(3, 'Title too short').max(100, 'Title too long'),
+  description: z.string().min(10, 'Description too short').max(1000),
+  category: z.enum([
+    'electronics', 
+    'documents', 
+    'clothing', 
+    'jewelry', 
+    'keys', 
+    'wallet', 
+    'bag', 
+    'other'
+  ]),
+  status: z.enum(['lost', 'found']),
+  images: z.array(z.string().url().optional()).max(5).default([])
+});

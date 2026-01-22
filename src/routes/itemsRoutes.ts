@@ -1,6 +1,8 @@
 // src/routes/itemRoutes.ts - FIXED VERSION
 import express, { Request, Response } from 'express';
 import { authenticateToken } from '../middlewares/auth';
+import { createItem, deleteItem, getItem, getItemById, updateitem } from '../controllers/itemsController';
+import { createItemSchema } from '../Schemas/authSchema';
 
 interface AuthRequest extends Request {
   user?: {
@@ -12,26 +14,26 @@ interface AuthRequest extends Request {
 
 const router = express.Router();
 
-// Public: List all items
-router.get('/', (req, res) => {
-  res.json({ 
-    success: true,
-    message: 'Public items list',
-    data: [] 
-  });
-});
+// Public: Get all items (with filter)
+router.get('/',getItem);
+
+// Public: Get single item
+router.get('/:id', getItemById);
 
 // Protected: Auth middleware
 router.use(authenticateToken as express.RequestHandler);
 
 // Create item (user only)
-router.post('/', (req: AuthRequest, res: Response) => {
-  res.json({
-    success: true,
-    message: 'Item created successfully!',
-    user: req.user, 
-    data: { itemId: '123' }
-  });
+router.post('/', (req: AuthRequest, res,next) => {
+  try {
+    createItemSchema.parse(req.body);
+    createItem(req,res);
+  } catch (error) {
+    
+  }
 });
+
+router.put('/:id', updateitem);
+router.delete('/:id', deleteItem);
 
 export default router;
