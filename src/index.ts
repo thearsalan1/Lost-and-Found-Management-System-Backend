@@ -1,8 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv';
-import { success } from 'zod';
 import connectDB from './config/database';
+import authRoutes from './routes/authRoutes';
+import itemRoutes from './routes/itemsRoutes';
+import adminRoutes from './routes/adminRoutes';
+
 
 dotenv.config();
 
@@ -20,6 +23,10 @@ app.use(express.urlencoded({extended:true}));
 connectDB();
 
 // Routes
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/items', itemRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/health',(req,res)=>{
@@ -39,4 +46,7 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT,()=>{
   console.log(`Server is running at port http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📱 Auth: http://localhost:${PORT}/api/auth/signup`);
+  console.log(`📱 Health: http://localhost:${PORT}/api/health`);
 })

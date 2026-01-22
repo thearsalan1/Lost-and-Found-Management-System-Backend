@@ -2,7 +2,6 @@ import { Request,Response } from "express";
 import User from "../models/User";
 import {generateToken} from '../utils/jwt'
 import { signupSchema, loginSchema } from "../Schemas/authSchema"
-import { success } from "zod";
 
 export const signup = async (req:Request,res:Response)=>{
   try {

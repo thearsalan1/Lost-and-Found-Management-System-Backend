@@ -47,18 +47,18 @@ const UserSchema: Schema = new Schema({
   timestamps: true
 });
 
-// Password hashing before save
-UserSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  
-  try {
-    const salt = await bcrypt.genSalt(12);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error as Error);
+UserSchema.pre<IUserDocument>('save', async function () {
+  if (!this.isModified('password')) {
+    return;
   }
+
+  const salt = await bcrypt.genSalt(12);
+  this.password = await bcrypt.hash(this.password, salt);
 });
+
+
+
+
 
 // Compare password method
 UserSchema.methods.comparePassword = async function(candidatePassword: string) {
