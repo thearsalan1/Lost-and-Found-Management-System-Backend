@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import { authenticateToken } from '../middlewares/auth';
 import { createItem, deleteItem, getItem, getItemById, updateitem } from '../controllers/itemsController';
 import { createItemSchema } from '../Schemas/authSchema';
+import { submitClaim } from '../controllers/claimController';
 
 interface AuthRequest extends Request {
   user?: {
@@ -32,6 +33,8 @@ router.post('/', (req: AuthRequest, res,next) => {
     
   }
 });
+
+router.post("/:id/claim",submitClaim)
 
 router.put('/:id', updateitem);
 router.delete('/:id', deleteItem);

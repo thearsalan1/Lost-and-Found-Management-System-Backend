@@ -1,8 +1,9 @@
-// src/routes/adminRoutes.ts - FIXED VERSION
 import express, { Request, Response } from 'express';
 import { authenticateToken, authroizeRole } from '../middlewares/auth'; 
+import { adminDashboard } from '../controllers/adminController';
+import Claim from '../models/Claim';
+import { approveClaim, rejectClaim } from '../controllers/claimController';
 
-// Extend Request interface to include user
 interface AuthRequest extends Request {
   user?: {
     id: string;
@@ -19,23 +20,16 @@ router.use(authenticateToken as express.RequestHandler);
 // Then admin role ONLY
 router.use(authroizeRole(['admin']) as express.RequestHandler);
 
-router.get('/dashboard', (req: AuthRequest, res: Response) => {
-  res.json({
-    success: true,
-    message: 'Admin dashboard ✅',
-    user: req.user, 
-    timestamp: new Date().toISOString()
-  });
-});
+router.get('/dashboard',adminDashboard);
 
-// Admin: Get all users (example)
-router.get('/users', (req: AuthRequest, res: Response) => {
-  res.json({
-    success: true,
-    message: 'All users list',
-    user: req.user,
-    data: [] 
-  });
-});
+router.get('/claim',async(req:AuthRequest,res:Response)=>{
+  const claims = await Claim.find({ status: 'pending' })
+    .populate('itemId', 'title status')
+    .populate('claimedBy', 'name email')
+    .lean();
+  res.json({ success: true, data: claims });
+})
 
+router.put('/claims/:id/approve', approveClaim);
+router.put('/claims/:id/reject', rejectClaim);
 export default router;

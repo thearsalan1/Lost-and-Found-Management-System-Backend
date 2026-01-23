@@ -30,7 +30,7 @@ const ClaimSchema:Schema = new Schema({
   },
   proof:{
     type:String,
-    required:true,
+    required:[true, 'Proof required'],
     minlength:50,
     maxlength:500,
   },
@@ -48,5 +48,8 @@ const ClaimSchema:Schema = new Schema({
 },{
   timestamps:true
 })
+
+ClaimSchema.index({ itemId: 1, status: 1 });
+ClaimSchema.index({ claimedBy: 1 });
 
 export default mongoose.model<IClaimDocument>('Claim',ClaimSchema)
