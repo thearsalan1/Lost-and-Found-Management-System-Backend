@@ -89,10 +89,10 @@ src/
 | Day   | Focus                            | Status    |
 | ----- | -------------------------------- | --------- |
 | Day 1 | ✅ Project Setup + MongoDB Models | COMPLETE  |
-| Day 2 | Authentication + Middleware      | ⏳ Next    |
-| Day 3 | Item CRUD + Filtering            | ⏳ Planned |
-| Day 4 | Claims + Admin Dashboard         | ⏳ Planned |
-| Day 5 | Error Handling + Testing         | ⏳ Planned |
+| Day 2 | ✅ Authentication + Middleware      | COMPLETE    |
+| Day 3 | ✅ Item CRUD + Filtering            | COMPLETE |
+| Day 4 | ✅ Claims + Admin Dashboard         | COMPLETE |
+| Day 5 | ✅ Error Handling + Testing         | COMPLETE |
 
 🧪 Testing
 # Run tests
