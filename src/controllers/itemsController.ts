@@ -78,7 +78,7 @@ const itemsPipline:any[] = [
       pipeline:[{$project:{name:1,email:1}}]
     }
   },
-  {$unwind:{path:"$postedVy",preserveNullAndEmptyArrays:true}},
+  {$unwind:{path:"$postedBy",preserveNullAndEmptyArrays:true}},
   {
     $project:{
       title:1,

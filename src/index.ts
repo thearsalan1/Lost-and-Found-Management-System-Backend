@@ -47,7 +47,4 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT,()=>{
   console.log(`Server is running at port http://localhost:${PORT}`);
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📱 Auth: http://localhost:${PORT}/api/auth/signup`);
-  console.log(`📱 Health: http://localhost:${PORT}/api/health`);
 })

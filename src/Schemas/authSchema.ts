@@ -18,7 +18,7 @@ export const loginSchema = z.object({
   password: z.string().min(1)
 });
 
-// Add to existing authSchemas.ts
+
 export const createItemSchema = z.object({
   title: z.string().min(3, 'Title too short').max(100, 'Title too long'),
   description: z.string().min(10, 'Description too short').max(1000),

@@ -37,7 +37,7 @@ export const adminDashboard = async (req: AuthRequest, res: Response) => {
         .lean()
     ]);
 
-    // Category stats
+
     const categoryStats = await Item.aggregate([
       { $group: { _id: '$category', count: { $sum: 1 } } },
       { $sort: { count: -1 } },
